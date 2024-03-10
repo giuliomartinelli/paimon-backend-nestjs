@@ -2,11 +2,11 @@
 
 [![licence mit](https://img.shields.io/badge/licence-MIT-blue.svg)](./LICENSE)
 
-A intenção do projeto :cammel: Paimon é de forma simples, usando as melhores praticas do NestJS e TypeScript, ser um modelo de API Rest com serviço `Autenticação` usando a biblioteca `Passaport` e um simples `CRUD` de usuarios :)
+A intenção do projeto :camel: Paimon é de forma simples, usando as melhores praticas do NestJS e TypeScript, ser um modelo de API Rest com serviço `Autenticação` usando a biblioteca `Passaport` e um simples `CRUD` de usuarios :)
 
 
-## Como rodar na minha máquina?
-### Configure as variaves de ambiente
+## Como rodar na minha máquina ?
+### Configuração
 
 - Renomeie o arquivo `example.env` para `.env`
 
