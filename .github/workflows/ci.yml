@@ -9,11 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.2
-      - run: echo "${{ secrets.SSH_PRIVATE_KEY }}"
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.PAIMON.SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "src/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
