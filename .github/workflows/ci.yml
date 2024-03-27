@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4.1.2
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
-        env:
+        with:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i"
           SOURCE: "src/"
