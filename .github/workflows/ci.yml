@@ -13,7 +13,7 @@ jobs:
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i"
           SOURCE: "src/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
