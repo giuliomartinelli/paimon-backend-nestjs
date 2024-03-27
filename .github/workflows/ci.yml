@@ -8,6 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4.1.2
+      - name: Deploy SSH glubglub
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PIVATE_KEY: ${{ secrets.SSH_PIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          TARGET: ${{ secrets.TARGET }}
       
