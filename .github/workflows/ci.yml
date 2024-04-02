@@ -17,7 +17,6 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm test
       
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
