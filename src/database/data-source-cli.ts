@@ -3,7 +3,7 @@ import { DataSource, DataSourceOptions } from "typeorm";
 
 const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
-    host: 'localhost',
+    host: 'mysql',
     //host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
     username:process.env.MYSQL_USER,
