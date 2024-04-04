@@ -15,10 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: commands npm
       - run: npm ci
       - run: npm run build
-      - name: rm -rf
       - run: rm -rf package.json package-lock.json .eslintrc.js example.env .git .github .gitignore LICENSE nest-cli.json .prettierrc README.md src test tsconfig.build.json tsconfig.json
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
