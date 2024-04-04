@@ -25,6 +25,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "."
+          EXCLUDE: "/.eslintrc.js, /example.env, /.git, .github, /.gitignore, /LICENSE, /nest-cli.json, /.prettierrc, /README.md, /src, /test, /tsconfig.build.json, /tsconfig.json"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
