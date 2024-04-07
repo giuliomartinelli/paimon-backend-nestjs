@@ -12,6 +12,7 @@ jobs:
       - run: |
           ls -la
           pwd
+          ping 192.168.3.40
           touch .env
           echo "${{ secrets.PAIMON_NESTJS_PROD }}" > .env
       - uses: actions/setup-node@v4
