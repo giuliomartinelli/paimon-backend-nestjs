@@ -1,0 +1,20 @@
+name: paimon CI hml
+on:
+  push:
+    branches: 
+      - hml
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.PAIMON_NESTJS_PROD }}" > .env
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typeorm
