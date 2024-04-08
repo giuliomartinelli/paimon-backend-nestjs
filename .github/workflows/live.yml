@@ -17,6 +17,7 @@ jobs:
           node-version: 20.12.1
       - run: npm ci
       - run: npm run build
+      - run: npm run typeorm migration:run
       - run: rm -rf .eslintrc.js example.env .git .github .gitignore LICENSE nest-cli.json .prettierrc README.md src test tsconfig.build.json tsconfig.json
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
