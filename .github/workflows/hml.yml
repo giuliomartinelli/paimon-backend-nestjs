@@ -17,4 +17,4 @@ jobs:
           node-version: 20.12.1
       - run: npm ci
       - run: npm run build
-      - run: npm run typeorm
+      - run: npm run typeorm migration:run
