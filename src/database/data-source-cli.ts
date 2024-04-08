@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { DataSource, DataSourceOptions } from "typeorm";
 
+console.log(__dirname);
+
 const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
     host: process.env.MYSQL_TYPEORM,
