@@ -16,7 +16,6 @@ jobs:
             touch .env
             echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
   build:
-    needs: checkout
     - name: Build
     - uses: actions/setup-node@v4
       with:
@@ -26,7 +25,6 @@ jobs:
     - run: npm run typeorm migration:run  
 
   deploy:
-      needs: [checkout, build]
     - name: Deploy SSH glubglub
       uses: easingthemes/ssh-deploy@main
       with:
