@@ -6,7 +6,6 @@ on:
 
 jobs:
   checkout:
-  - name: Checkout
     build:
       runs-on: self-hosted
       steps:
