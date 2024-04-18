@@ -13,7 +13,7 @@ jobs:
       - run: |
           touch .env
           echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
-  build:
+  baaaa:
     runs-on: self-hosted
     - uses: actions/setup-node@v4
       with:
