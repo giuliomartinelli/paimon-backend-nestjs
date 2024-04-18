@@ -16,8 +16,8 @@ jobs:
             touch .env
             echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
   build:
-  - name: Build
     needs: checkout
+    - name: Build
     - uses: actions/setup-node@v4
       with:
         node-version: 20.12.1
