@@ -6,15 +6,15 @@ on:
 
 jobs:
   checkout:
-    build:
-      runs-on: self-hosted
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4.1.2
-        - run: |
-            touch .env
-            echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
   build:
+    runs-on: self-hosted
     - uses: actions/setup-node@v4
       with:
         node-version: 20.12.1
@@ -23,6 +23,7 @@ jobs:
     - run: npm run typeorm migration:run  
 
   deploy:
+    runs-on: self-hosted
     uses: easingthemes/ssh-deploy@main
     with:
       SSH_PRIVATE_KEY: ${{ secrets.HML_SSH_PRIVATE_KEY }}
