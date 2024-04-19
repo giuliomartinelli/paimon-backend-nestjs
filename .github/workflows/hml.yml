@@ -6,12 +6,16 @@ on:
 
 jobs:
   tests:
+    runs-on: self-hosted
     steps:
-      uses: actions/checkout@v4.1.2
-      run: ls
+      - name: aaaaa
+        uses: actions/checkout@v4.1.2
+      - run: ls
     
   build:
     needs: tests
+    runs-on: self-hosted
     steps:
-      uses: actions/checkout@v4.1.2
-      run: ls
+      - name: bbbb
+        uses: actions/checkout@v4.1.2
+      - run: ls
