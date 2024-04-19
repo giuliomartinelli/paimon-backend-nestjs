@@ -5,7 +5,7 @@ on:
       - hml
 
 jobs:
-  checkout:
+  tests:
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -13,25 +13,33 @@ jobs:
       - run: |
           touch .env
           echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
-  baaaa:
-    runs-on: self-hosted
-    - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
       with:
         node-version: 20.12.1
-    - run: npm ci
-    - run: npm run build
-    - run: npm run typeorm migration:run  
+      - run: npm ci
 
-  deploy:
+  build:
+    needs: tests
     runs-on: self-hosted
-    uses: easingthemes/ssh-deploy@main
-    with:
-      SSH_PRIVATE_KEY: ${{ secrets.HML_SSH_PRIVATE_KEY }}
-      ARGS: "-rlgoDzvc -i --delete"
-      SOURCE: "."
-      REMOTE_HOST: ${{ secrets.HML_REMOTE_HOST }}
-      REMOTE_USER: ${{ secrets.HML_REMOTE_USER }}
-      REMOTE_PORT: ${{ secrets.HML_REMOTE_PORT }}
-      TARGET: ${{ secrets.HML_TARGET }}
-      SCRIPT_BEFORE: ${{ secrets.HML_SCRIPT_BEFORE }}
-      SCRIPT_AFTER: ${{ secrets.HML_SCRIPT_AFTER }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
+      - uses: actions/setup-node@v4
+      with:
+        node-version: 20.12.1
+      - run: npm ci
+      - run: npm build
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.HML_SSH_PRIVATE_KEY }}
+        ARGS: "-rlgoDzvc -i --delete"
+        SOURCE: "."
+        REMOTE_HOST: ${{ secrets.HML_REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.HML_REMOTE_USER }}
+        REMOTE_PORT: ${{ secrets.HML_REMOTE_PORT }}
+        TARGET: ${{ secrets.HML_TARGET }}
+        SCRIPT_BEFORE: ${{ secrets.HML_SCRIPT_BEFORE }}
+        SCRIPT_AFTER: ${{ secrets.HML_SCRIPT_AFTER }}
