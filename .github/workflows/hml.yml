@@ -8,10 +8,10 @@ jobs:
   tests:
     steps:
       uses: actions/checkout@v4.1.2
-      - run: ls
+      run: ls
     
   build:
     needs: tests
     steps:
       uses: actions/checkout@v4.1.2
-      - run: ls
+      run: ls
