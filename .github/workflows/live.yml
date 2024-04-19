@@ -3,11 +3,28 @@ on:
   push:
     branches: 
       - main
+
 jobs:
-  build:
+  unit-tests:
     runs-on: self-hosted
     steps:
-      - name: Checkout
+      - name: Unit Tests
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.PROD_PAIMON_NESTJS }}" > .env
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+      - run: npm ci
+      # tests
+
+    
+  build:
+    needs: unit-tests
+    runs-on: self-hosted
+    steps:
+      - name: Build and Deploy
         uses: actions/checkout@v4.1.2
       - run: |
           touch .env

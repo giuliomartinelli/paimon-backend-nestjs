@@ -3,30 +3,62 @@ on:
   push:
     branches: 
       - hml
+
 jobs:
-  build:
+  unit-tests:
     runs-on: self-hosted
     steps:
-      - name: Checkout
+      - name: Unit Tests
         uses: actions/checkout@v4.1.2
       - run: |
           touch .env
-          echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
+          echo "${{ secrets.PROD_PAIMON_NESTJS }}" > .env
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+      - run: npm ci
+      # tests
+
+  e2e-tests:
+    needs: unit-tests
+    runs-on: self-hosted
+    steps:
+      - name: Unit Tests
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.PROD_PAIMON_NESTJS }}" > .env
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+      - run: npm ci
+      # tests
+    
+  build:
+    needs: [unit-tests, e2e-tests]
+    runs-on: self-hosted
+    steps:
+      - name: Build and Deploy
+        uses: actions/checkout@v4.1.2
+      - run: |
+          touch .env
+          echo "${{ secrets.PROD_PAIMON_NESTJS }}" > .env
       - uses: actions/setup-node@v4
         with:
           node-version: 20.12.1
       - run: npm ci
       - run: npm run build
       - run: npm run typeorm migration:run
+      - run: rm -rf .eslintrc.js example.env .git .github .gitignore LICENSE nest-cli.json .prettierrc README.md src test tsconfig.build.json tsconfig.json
       - name: Deploy SSH glubglub
         uses: easingthemes/ssh-deploy@main
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.HML_SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "."
-          REMOTE_HOST: ${{ secrets.HML_REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.HML_REMOTE_USER }}
-          REMOTE_PORT: ${{ secrets.HML_REMOTE_PORT }}
-          TARGET: ${{ secrets.HML_TARGET }}
-          SCRIPT_BEFORE: ${{ secrets.HML_SCRIPT_BEFORE }}
-          SCRIPT_AFTER: ${{ secrets.HML_SCRIPT_AFTER }}
+          REMOTE_HOST: ${{ secrets.PROD_REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.PROD_REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.PROD_REMOTE_PORT }}
+          TARGET: ${{ secrets.PROD_TARGET }}
+          SCRIPT_BEFORE: ${{ secrets.PROD_SCRIPT_BEFORE }}
+          SCRIPT_AFTER: ${{ secrets.PROD_SCRIPT_AFTER }}
