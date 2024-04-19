@@ -16,7 +16,7 @@ jobs:
           ls -la 
     
   build:
-    needs: tests
+    needs: unit-tests
     runs-on: self-hosted
     steps:
       - name: bbbb
