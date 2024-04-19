@@ -5,12 +5,15 @@ on:
       - hml
 
 jobs:
-  tests:
+  unit-tests:
     runs-on: self-hosted
     steps:
       - name: aaaaa
         uses: actions/checkout@v4.1.2
-      - run: ls
+      - run: |
+          touch .env
+          echo "${{ secrets.PROD_PAIMON_NESTJS }}" > .env
+          ls -la 
     
   build:
     needs: tests
@@ -18,4 +21,5 @@ jobs:
     steps:
       - name: bbbb
         uses: actions/checkout@v4.1.2
-      - run: ls
+      - run: |
+          ls -la
