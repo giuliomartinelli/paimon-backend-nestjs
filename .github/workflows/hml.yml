@@ -6,26 +6,11 @@ on:
 
 jobs:
   tests:
-    runs-on: self-hosted
     steps:
-        uses: actions/checkout@v4.1.2
-      - run: |
-          touch .env
-          echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
-      - uses: actions/setup-node@v4
-      with:
-        node-version: 20.12.1
-      - run: npm ci
-
+      uses: actions/checkout@v4.1.2
+    
   build:
     needs: tests
-    runs-on: self-hosted
     steps:
-        uses: actions/checkout@v4.1.2
-      - run: |
-          touch .env
-          echo "${{ secrets.HML_PAIMON_NESTJS }}" > .env
-      - uses: actions/setup-node@v4
-      with:
-        node-version: 20.12.1
-      - run: npm ci
+      uses: actions/checkout@v4.1.2
+      
