@@ -8,5 +8,4 @@ jobs:
   tests:
 
   build:
-    needs: tests
  
